@@ -1,5 +1,5 @@
 <template>
-  <div class="volunteerPanel">
+  <div class="eventsPanel">
     <b-navbar toggleable="md" type="dark" variant="info">
 
   <b-navbar-toggle target="nav_collapse"></b-navbar-toggle>
@@ -27,78 +27,62 @@
 </b-navbar>
 
 <br />
-<b-table striped hover :items="users" :fields="fields"></b-table>
+<b-table striped hover :items="events" :fields="fields"></b-table>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'VolunteerPanel',
+  name: 'UsersPanel',
   components: {
   },
   data () {
     return {
-      users: [],
       events: [],
       token: this.$route.params.token,
       fields: {
         name: {
-          label: 'Nombre'
+          label: 'Nombre del evento'
         },
         surname: {
-          label: 'Apellidos'
+          label: 'Descripción'
         },
         email: {
-          label: 'Correo'
-        },
-        phone: {
-          label: 'Teléfono'
+          label: 'Fecha'
         }
       }
     }
   },
   created () {
-    this.loadVolunteers()
+    this.loadEvents()
   },
   methods: {
 
     loadUsers () {
-      this.$http.get('http://api.solidarios.coredumped.es/user/list?role=needer', {
-        params: {
-          'Authorization': 'Beacon ' + this.token,
-          'Access-Control-Allow-Origin': '*'
-        }}).then(response => {
-        this.users = response.data
-      }, errorResponse => {
-        console.log('Error on request')
+      this.$router.push({
+        name: 'usersPanel',
+        params: { token: this.token }
       })
     },
 
     loadVolunteers () {
-      this.$http.get('http://api.solidarios.coredumped.es/user/list?role=volunteer', {
-        params: {
-          'Authorization': 'Beacon ' + this.token,
-          'Access-Control-Allow-Origin': '*'
-        }}).then(response => {
-        this.users = response.data
-      }, errorResponse => {
-        console.log('Error on request')
+      this.$router.push({
+        name: 'volunteersPanel',
+        params: { token: this.token }
       })
     },
 
     loadEvents () {
-      if (this.events.length === 0) {
-        this.$http.get('http://api.solidarios.coredumped.es/event/', {
-          params: {
-            'Authorization': 'Beacon ' + this.token,
-            'Access-Control-Allow-Origin': '*'
-          }
-        }).then(response => {
-          this.users = response.data
-        }, errorResponse => {
-          console.log('Error on request')
-        })
-      }
+      this.$http.get('http://api.solidarios.coredumped.es/event/', {
+        params: {
+          'Authorization': 'Beacon ' + this.token,
+          'Access-Control-Allow-Origin': '*'
+        }
+      }).then(response => {
+        this.events = response.data.events
+      }, errorResponse => {
+        console.log('Error on request')
+      })
     }
   }
 }

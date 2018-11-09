@@ -1,7 +1,10 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Login from '@/components/Login'
-import VolunteerPanel from '@/components/VolunteerPanel'
+import UsersPanel from '@/components/UsersPanel'
+import VolunteersPanel from '@/components/volunteersPanel'
+import EventsPanel from '@/components/EventsPanel'
+import CreateUserPanel from '@/components/CreateUserPanel'
 
 Vue.use(Router)
 
@@ -14,9 +17,24 @@ export default new Router({
       component: Login
     },
     {
-      path: '/panel',
-      name: 'volunteerPanel',
-      component: VolunteerPanel
+      path: '/users',
+      name: 'usersPanel',
+      component: UsersPanel
+    },
+    {
+      path: '/volunteers',
+      name: 'volunteersPanel',
+      component: VolunteersPanel
+    },
+    {
+      path: '/events',
+      name: 'eventsPanel',
+      component: EventsPanel
+    },
+    {
+      path: '/newUser',
+      name: 'createNewUser',
+      component: CreateUserPanel
     }
   ]
 })

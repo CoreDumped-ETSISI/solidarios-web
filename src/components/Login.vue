@@ -45,7 +45,7 @@ export default {
           .then(
             response => {
               this.$router.push({
-                name: 'volunteerPanel',
+                name: 'usersPanel',
                 params: { token: response.body.token }
               })
             },
