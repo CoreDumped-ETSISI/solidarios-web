@@ -1,5 +1,6 @@
 <template>
     <div class="formContainer">
+      <h1>Crear nuevo usuario</h1>
       <input type="text" v-model="newUser.name" name="name" placeholder="Nombre">
       <input type="text" v-model="newUser.surname" name="surname" placeholder="Apellidos">
       <input type="password" v-model="newUser.password" name="password" placeholder="Contraseña">

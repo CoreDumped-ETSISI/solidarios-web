@@ -27,17 +27,41 @@
 </b-navbar>
 
 <br />
-<b-table striped hover :items="events" :fields="fields"></b-table>
+<b-table striped hover :items="filteredList" :fields="fields"></b-table>
+<fab
+    :position="position"
+    :actions="fabActions"
+    :main-icon="main_icon"
+    :icon-size="icon_size"
+    @loadEvents="loadEvents"
+    @createEvent="createEvent"></fab>
   </div>
 </template>
 
 <script>
+import fab from 'vue-fab'
+
 export default {
-  name: 'UsersPanel',
+  name: 'EventsPanel',
   components: {
+    fab
   },
   data () {
     return {
+      search: '',
+      position: 'bottom-right',
+      main_icon: 'settings',
+      icon_size: 'large',
+      fabActions: [
+        {
+          name: 'loadEvents',
+          icon: 'cached'
+        },
+        {
+          name: 'createEvent',
+          icon: 'add'
+        }
+      ],
       events: [],
       token: this.$route.params.token,
       fields: {
@@ -50,6 +74,15 @@ export default {
         email: {
           label: 'Fecha'
         }
+      }
+    }
+  },
+  computed: {
+    filteredList () {
+      if (this.events !== undefined) {
+        return this.events.filter(post => {
+          return post.name.toLowerCase().includes(this.search.toLowerCase())
+        })
       }
     }
   },
@@ -73,17 +106,21 @@ export default {
     },
 
     loadEvents () {
-      this.$http.get('http://api.solidarios.coredumped.es/event/', {
-        params: {
-          'Access-Control-Allow-Origin': '*'
-        },
-        headers: {
-          'Authorization': 'Beacon ' + this.token
-        }
-      }).then(response => {
-        this.events = response.data.events
+      const httpOptions = {
+        'Authorization': 'Beacon ' + this.token,
+        'Access-Control-Allow-Origin': '*'
+      }
+      this.$http.get('http://api.solidarios.coredumped.es/event', {headers: httpOptions}).then(response => {
+        this.events = response.data
       }, errorResponse => {
         console.log('Error on request')
+      })
+    },
+
+    createEvent () {
+      this.$router.push({
+        name: 'createNewEvent',
+        params: { token: this.token }
       })
     }
   }

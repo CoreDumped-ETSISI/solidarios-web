@@ -5,6 +5,7 @@ import UsersPanel from '@/components/UsersPanel'
 import VolunteersPanel from '@/components/volunteersPanel'
 import EventsPanel from '@/components/EventsPanel'
 import CreateUserPanel from '@/components/CreateUserPanel'
+import CreateEventPanel from '@/components/CreateEventPanel'
 
 Vue.use(Router)
 
@@ -35,6 +36,11 @@ export default new Router({
       path: '/newUser',
       name: 'createNewUser',
       component: CreateUserPanel
+    },
+    {
+      path: '/newEvent',
+      name: 'createNewEvent',
+      component: CreateEventPanel
     }
   ]
 })

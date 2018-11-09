@@ -27,7 +27,7 @@
 </b-navbar>
 
 <br />
-<b-table striped hover :items="events" :fields="fields"></b-table>
+<b-table striped hover :items="filteredList" :fields="fields"></b-table>
   </div>
 </template>
 
@@ -38,7 +38,8 @@ export default {
   },
   data () {
     return {
-      events: [],
+      search: '',
+      volunteers: [],
       token: this.$route.params.token,
       fields: {
         name: {
@@ -56,6 +57,13 @@ export default {
       }
     }
   },
+  computed: {
+    filteredList () {
+      return this.volunteers.filter(post => {
+        return post.name.toLowerCase().includes(this.search.toLowerCase())
+      })
+    }
+  },
   created () {
     this.loadVolunteers()
   },
@@ -69,15 +77,12 @@ export default {
     },
 
     loadVolunteers () {
-      this.$http.get('http://api.solidarios.coredumped.es/user/list?role=volunteer', {
-        params: {
-          'Access-Control-Allow-Origin': '*'
-        },
-        headers: {
-          'Authorization': 'Beacon ' + this.token
-        }
-      }).then(response => {
-        this.events = response.data
+      const httpOptions = {
+        'Authorization': 'Beacon ' + this.token,
+        'Access-Control-Allow-Origin': '*'
+      }
+      this.$http.get('http://api.solidarios.coredumped.es/user/list?role=volunteer', {headers: httpOptions}).then(response => {
+        this.users = response.data
       }, errorResponse => {
         console.log('Error on request')
       })

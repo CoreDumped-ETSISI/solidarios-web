@@ -12,14 +12,14 @@
         <!-- Right aligned nav items -->
         <b-navbar-nav class="ml-auto">
           <b-nav-form>
-            <b-form-input size="sm" class="mr-sm-2" type="text" placeholder="Buscar"/>
+            <b-form-input v-model="search" size="sm" class="mr-sm-2" type="text" placeholder="Buscar"/>
             <b-button size="sm" class="my-2 my-sm-0" type="submit">Buscar</b-button>
           </b-nav-form>
         </b-navbar-nav>
       </b-collapse>
     </b-navbar>
     <br />
-    <b-table striped hover :items="users" :fields="fields"></b-table>
+    <b-table striped hover :items="filteredList" :fields="fields"></b-table>
     <fab
     :position="position"
     :actions="fabActions"
@@ -40,6 +40,7 @@ export default {
   },
   data () {
     return {
+      search: '',
       position: 'bottom-right',
       main_icon: 'settings',
       icon_size: 'large',
@@ -74,22 +75,26 @@ export default {
       }
     }
   },
+
+  computed: {
+    filteredList () {
+      return this.users.filter(post => {
+        return post.name.toLowerCase().includes(this.search.toLowerCase())
+      })
+    }
+  },
+
   created () {
     this.loadUsers()
   },
   methods: {
 
     loadUsers () {
-      console.log('Loading users...')
-      console.log('TOKEN:' + this.token)
-      this.$http.get('http://api.solidarios.coredumped.es/user/list?role=needer', {
-        params: {
-          'Access-Control-Allow-Origin': '*'
-        },
-        headers: {
-          'Authorization': 'Beacon ' + this.token
-        }
-      }).then(response => {
+      const httpOptions = {
+        'Authorization': 'Beacon ' + this.token,
+        'Access-Control-Allow-Origin': '*'
+      }
+      this.$http.get('http://api.solidarios.coredumped.es/user/list?role=needer', {headers: httpOptions}).then(response => {
         this.users = response.data
       }, errorResponse => {
         console.log('Error on request')
