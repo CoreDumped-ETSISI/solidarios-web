@@ -15,7 +15,11 @@
         <b-form-input type="password" v-model="input.password" required placeholder="Introduce tu contraseña.">
         </b-form-input>
       </b-form-group>
-      <b-button v-on:click="login" variant="primary">Entrar</b-button>
+      <b-row align-h="center">
+        <b-col sm="4">
+          <b-button v-on:click="login" variant="primary" class="full-width">Entrar</b-button>
+        </b-col>
+      </b-row>
     </b-form>
     </b-col>
     </b-row>
@@ -93,5 +97,9 @@ export default {
   font-family: monospace;
   font-size: 0.9em;
   text-align: center;
+}
+
+.full-width{
+  width: 100%;
 }
 </style>

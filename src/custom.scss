@@ -5,25 +5,26 @@
 $body-bg: #ededed;
 
 // Override / set color variables
-$white: rgb(230, 230, 230);
-$black: rgb(31, 31, 31);
-$green: #3a9e26;
-$blue: #114a70;
+$white: #eee;
+$black: #111;
+$green: #427435;
+$blue: #50B9C4;
 $orange: #f88400;
-$yellow: #ffd925;
-$red: #ad1044;
+$yellow: #fdff59;
+$red: #E0522D;
+$purple: #51398C;
 
 // Create grayscale
-$gray-dark: #292b2c;
+$gray-dark: #292929;
 $gray: #3f3f3f;
 $gray-light: #7e7e7e;
 $gray-lighter: #ededed;
 $gray-lightest: #fafafa;
 
 // Set brand colors
-$primary: #00bb00;
+$primary: #427435;
 $success: $green;
-$info: $yellow;
+$info: $blue;
 $warning: $orange;
 $danger: $red;
 
