@@ -1,6 +1,6 @@
 <template>
   <div class="eventsPanel">
-    <b-navbar toggleable="md" type="dark" variant="info">
+    <b-navbar toggleable="md" type="dark" variant="primary">
 
   <b-navbar-toggle target="nav_collapse"></b-navbar-toggle>
 
@@ -19,7 +19,7 @@
 
       <b-nav-form>
         <b-form-input size="sm" class="mr-sm-2" type="text" placeholder="Buscar"/>
-        <b-button size="sm" class="my-2 my-sm-0" type="submit">Buscar</b-button>
+        <b-button size="sm" class="my-2 my-sm-0 white-bg" type="submit" variant="outline-success" >Buscar</b-button>
       </b-nav-form>
     </b-navbar-nav>
 
@@ -90,7 +90,6 @@ export default {
   created () {
     this.loadEvents()
   },
-  
   methods: {
 
     loadUsers () {
