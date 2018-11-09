@@ -6,7 +6,7 @@
       </b-row>
       <b-row align-v="center" align-h="start">
       <b-col sm="12" md="6" offset-md="3">
-    <b-form @submit="onSubmit">
+    <b-form>
       <b-form-group label="Correo electrónico:">
         <b-form-input type="email" v-model="input.email" required placeholder="Introduce tu correo electrónico">
         </b-form-input>

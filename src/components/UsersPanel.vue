@@ -105,6 +105,18 @@ export default {
         surname: {
           label: 'Apellidos'
         },
+        dni: {
+          label: 'DNI'
+        },
+        address: {
+          label: 'Dirección'
+        },
+        age: {
+          label: 'Edad'
+        },
+        gender: {
+          label: 'Género'
+        },
         email: {
           label: 'Correo'
         },

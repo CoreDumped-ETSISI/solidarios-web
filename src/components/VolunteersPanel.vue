@@ -41,12 +41,24 @@ export default {
       search: '',
       volunteers: [],
       token: this.$route.params.token,
-      fields: {
+        fields: {
         name: {
           label: 'Nombre'
         },
         surname: {
           label: 'Apellidos'
+        },
+        dni: {
+          label: 'DNI'
+        },
+        address: {
+          label: 'Dirección'
+        },
+        age: {
+          label: 'Edad'
+        },
+        gender: {
+          label: 'Género'
         },
         email: {
           label: 'Correo'
