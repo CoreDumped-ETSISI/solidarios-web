@@ -1,16 +1,41 @@
 <template>
   <div class="login" id="login">
-    <img class="logo" src="/static/logo.png">
-    <br />
+    <b-container>
+      <b-row align-h="center" align-v="center">
+        <img class="logo" src="/static/logo.png">
+      </b-row>
+      <b-row align-v="center" align-h="start">
+      <b-col sm="12" md="6" offset-md="3">
+    <b-form @submit="onSubmit">
+      <b-form-group id="emailGroup" label="Correo electrónico:" label-for="emailInput" description="Introduce tu correo electrónico.">
+        <b-form-input id="emailInput" type="email" v-model="form.email" required placeholder="Introduce tu correo electrónico">
+        </b-form-input>
+      </b-form-group>
+            <b-form-group id="passwordGroup"
+                    label="Contraseña:"
+                    label-for="passwordInput"
+                    description="Introduce tu contraseña.">
+        <b-form-input id="passwordInput"
+                      type="password"
+                      v-model="form.text"
+                      required
+                      placeholder="Introduce tu contraseña.">
+        </b-form-input>
+      </b-form-group>
+      <b-form-group id="checkLoginGroup">
+        <b-form-checkbox-group v-model="form.checked" id="checksLogin">
+          <b-form-checkbox value="recordar">Recuérdame</b-form-checkbox>
+        </b-form-checkbox-group>
+      </b-form-group>
+      <b-button type="submit" variant="primary">Entrar</b-button>
+    </b-form>
+    </b-col>
+    </b-row>
+    </b-container>
     <modal
       v-show="isModalVisible"
       @close="closeModal"/>
-    <div class="loginForm">
-      <input type="text" v-model="input.email" name="email" placeholder="Correo electrónico">
-      <input type="password" v-model="input.password" name="password" placeholder="Contraseña">
-      <button type="button" v-on:click="login()">Login</button>
-    </div>
-    <footer>Proudly developed by CoreDumped. All rights reserved. ©2018</footer>
+    <b-container class="info-core">Proudly developed by <a href="https://coredumped.es/">>Core Dumped_</a>. All rights reserved. ©2018</b-container>
   </div>
 </template>
 
@@ -24,6 +49,17 @@ export default {
   },
   data () {
     return {
+      form: {
+        email: '',
+        name: '',
+        food: null,
+        checked: []
+      },
+      foods: [
+        { text: 'Select One', value: null },
+        'Carrots', 'Beans', 'Tomatoes', 'Corn'
+      ],
+      show: true,
       isModalVisible: false,
       input: {
         email: '',
@@ -69,30 +105,17 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-h1,
-h2 {
-  font-weight: normal;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
-}
 
+<style scoped>
 .logo {
   margin: 5vh;
+  width: 75vh;
 }
 
-.loginForm {
-  padding: 5px 0;
-  background: #42b983;
-  border-radius: 2px;
+.info-core{
+  margin-top: 25px;
+  font-family: monospace;
+  font-size: 0.9em;
+  text-align: center;
 }
 </style>
