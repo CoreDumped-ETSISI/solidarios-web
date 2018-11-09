@@ -86,9 +86,11 @@ export default {
       }
     }
   },
+
   created () {
     this.loadEvents()
   },
+  
   methods: {
 
     loadUsers () {
