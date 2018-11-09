@@ -75,8 +75,10 @@ export default {
     loadEvents () {
       this.$http.get('http://api.solidarios.coredumped.es/event/', {
         params: {
-          'Authorization': 'Beacon ' + this.token,
           'Access-Control-Allow-Origin': '*'
+        },
+        headers: {
+          'Authorization': 'Beacon ' + this.token
         }
       }).then(response => {
         this.events = response.data.events

@@ -76,16 +76,18 @@ export default {
   },
   created () {
     this.loadUsers()
-    console.log(this.token)
   },
   methods: {
 
     loadUsers () {
       console.log('Loading users...')
+      console.log('TOKEN:' + this.token)
       this.$http.get('http://api.solidarios.coredumped.es/user/list?role=needer', {
         params: {
-          'Authorization': 'Beacon ' + this.token,
           'Access-Control-Allow-Origin': '*'
+        },
+        headers: {
+          'Authorization': 'Beacon ' + this.token
         }
       }).then(response => {
         this.users = response.data

@@ -40,17 +40,20 @@ export default {
   methods: {
 
     createUser () {
-      this.$http.post('http://api.solidarios.coredumped.es/user/register', {
-        params: {
-          'Authorization': 'Beacon ' + this.token,
-          'Access-Control-Allow-Origin': '*'
-        },
-        body: this.newUser
-      }).then(response => {
-        console.log(response)
-      }, errorResponse => {
-        console.log('Error on request')
-      })
+      this.$http.post('http://api.solidarios.coredumped.es/user/register',
+        this.newUser,
+        {
+          'Access-Control-Allow-Origin': '*',
+          'Authorization': 'Beacon ' + this.token
+        })
+        .then(response => {
+          this.$router.push({
+            name: 'usersPanel',
+            params: { token: this.token }
+          })
+        }, errorResponse => {
+          console.log('Error on request')
+        })
     },
 
     cancelCreateUser () {
