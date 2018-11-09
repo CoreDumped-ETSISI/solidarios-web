@@ -19,7 +19,36 @@
       </b-collapse>
     </b-navbar>
     <br />
-    <b-table striped hover :items="filteredList" :fields="fields"></b-table>
+    <!--Modal to show user's info-->
+    <div id="my-modal" class="modal fade">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Información de usuario</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>Name: {{ name }}</p>
+          <p>Apellidos: {{ surname }}</p>
+          <p>DNI: {{ dni }}</p>
+          <p>Email: {{ email }}</p>
+          <p>Dirección: {{ address }}</p>
+          <p>Edad: {{ age }}</p>
+          <p>Género: {{ gender }}</p>
+          <p>Descripción: {{ description }}</p>
+          <p>Avatar: {{ avatarImage }}</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+        </div>
+      </div>
+    </div>
+    </div>
+
+    <b-table show-empty striped hover :items="filteredList" :fields="fields">
+    </b-table>
     <fab
     :position="position"
     :actions="fabActions"
@@ -40,6 +69,16 @@ export default {
   },
   data () {
     return {
+      name: '',
+      surname: '',
+      dni: '',
+      email: '',
+      phone: '',
+      address: '',
+      age: '',
+      gender: '',
+      description: '',
+      avatarImage: '',
       search: '',
       position: 'bottom-right',
       main_icon: 'settings',
@@ -89,6 +128,16 @@ export default {
   },
   methods: {
 
+    info (item, index, button) {
+      this.modalInfo.title = `Row index: ${index}`
+      this.modalInfo.content = JSON.stringify(item, null, 2)
+      this.$root.$emit('bv::show::modal', 'modalInfo', button)
+    },
+    resetModal () {
+      this.modalInfo.title = ''
+      this.modalInfo.content = ''
+    },
+
     loadUsers () {
       const httpOptions = {
         'Authorization': 'Beacon ' + this.token,
@@ -135,7 +184,7 @@ ul {
   padding: 0;
 }
 li {
-  display: inline-block;
+  display: block;
   margin: 0 10px;
 }
 a {

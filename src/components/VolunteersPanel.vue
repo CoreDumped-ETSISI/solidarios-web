@@ -27,7 +27,7 @@
 </b-navbar>
 
 <br />
-<b-table striped hover :items="filteredList" :fields="fields"></b-table>
+<b-table show-empty striped hover :items="filteredList" :fields="fields"></b-table>
   </div>
 </template>
 
